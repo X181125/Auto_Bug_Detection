@@ -206,27 +206,6 @@ tensorboard --logdir logs
 
 ---
 
-## Phát hiện lỗ hổng (Inference)
-
-### Sử dụng file code mẫu
-
-```bash
-python Detector.py --source badExample.c
-```
-
-### Kết quả mẫu
-
-```
-Ket qua Phat hien Lo hong
-================================
-File: badExample.c
-Du doan: CO LO HONG
-Do tin cay: 87.3%
-================================
-```
-
----
-
 ## Kết quả thực nghiệm
 
 | Chỉ số | Dataset CWE-77 |
@@ -242,17 +221,10 @@ Kết quả có thể thay đổi tùy thuộc vào hyperparameters và quá tr�
 
 ## Các thành phần chính
 
-### 1. Code2Graph.py
-Chuyển đổi mã nguồn C/C++ thành đồ thị AST và CDFG.
-
-### 2. Train_Model.py
 - `GraphTransformerLayer`: Multi-head self-attention với edge-type embedding
 - `GraphTransformerEncoder`: Stack của N lớp GraphTransformerLayer
 - `WeightedSumReadout`: Attention-based pooling
 - `VulnDetectorGraphTransformer`: Model chính kết hợp 2 view
-
-### 3. Detector.py
-Script inference để phát hiện lỗ hổng từ file mã nguồn.
 
 ---
 
@@ -299,13 +271,7 @@ Script inference để phát hiện lỗ hổng từ file mã nguồn.
 
 | Thông tin | Chi tiết |
 |-----------|----------|
-| Môn học | An toàn Thông tin / Machine Learning |
+| Môn học | Lập trình an toàn và khai thác lỗ hổng phần mềm |
 | Trường | Đại học Công nghệ Thông tin - ĐHQG TPHCM (UIT) |
 | Sinh viên | Nguyễn Đình Hưng |
 | MSSV | 23520564 |
-
----
-
-## Giấy phép
-
-MIT License - Sử dụng cho mục đích học tập và nghiên cứu.
