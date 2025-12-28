@@ -33,52 +33,61 @@ Dự án này xây dựng một hệ thống **phát hiện lỗ hổng bảo m�
 ## 🏗️ Kiến trúc Model
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Input: Source Code (C/C++)               │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-    ┌─────────────────┴─────────────────┐
-    ▼                                   ▼
-┌───────────┐                     ┌───────────┐
-│    AST    │                     │   CDFG    │
-│   Graph   │                     │   Graph   │
-└─────┬─────┘                     └─────┬─────┘
-      ▼                                 ▼
-┌───────────────────┐           ┌───────────────────┐
-│ Node Feature      │           │ Node Feature      │
-│ Encoder (MLP)     │           │ Encoder (MLP)     │
-└─────────┬─────────┘           └─────────┬─────────┘
-          ▼                               ▼
-┌───────────────────┐           ┌───────────────────┐
-│ Graph Transformer │           │ Graph Transformer │
-│ Encoder (4 layers)│           │ Encoder (4 layers)│
-│ • Multi-head Attn │           │ • Multi-head Attn │
-│ • Edge-type Bias  │           │ • Edge-type Bias  │
-│ • FFN + LayerNorm │           │ • FFN + LayerNorm │
-└─────────┬─────────┘           └─────────┬─────────┘
-          ▼                               ▼
-┌───────────────────┐           ┌───────────────────┐
-│ Weighted Sum      │           │ Weighted Sum      │
-│ Readout Layer     │           │ Readout Layer     │
-└─────────┬─────────┘           └─────────┬─────────┘
-          │                               │
-          └───────────┬───────────────────┘
-                      ▼
-              ┌───────────────┐
-              │    Concat     │
-              │ [AST + CDFG]  │
-              └───────┬───────┘
-                      ▼
-              ┌───────────────┐
-              │  Classifier   │
-              │    (MLP)      │
-              └───────┬───────┘
-                      ▼
-              ┌───────────────┐
-              │   Output:     │
-              │  Vulnerable / │
-              │ Not Vulnerable│
-              └───────────────┘
+                    +---------------------------+
+                    |   Input: Source Code      |
+                    |        (C/C++)            |
+                    +-------------+-------------+
+                                  |
+                    +-------------+-------------+
+                    |                           |
+                    v                           v
+            +-------+-------+           +-------+-------+
+            |      AST      |           |     CDFG      |
+            |     Graph     |           |     Graph     |
+            +-------+-------+           +-------+-------+
+                    |                           |
+                    v                           v
+            +-------+-------+           +-------+-------+
+            | Node Feature  |           | Node Feature  |
+            | Encoder (MLP) |           | Encoder (MLP) |
+            +-------+-------+           +-------+-------+
+                    |                           |
+                    v                           v
+            +-------+-------+           +-------+-------+
+            |    Graph      |           |    Graph      |
+            |  Transformer  |           |  Transformer  |
+            |  (4 layers)   |           |  (4 layers)   |
+            | - Multi-head  |           | - Multi-head  |
+            |   Attention   |           |   Attention   |
+            | - Edge Bias   |           | - Edge Bias   |
+            | - FFN + LN    |           | - FFN + LN    |
+            +-------+-------+           +-------+-------+
+                    |                           |
+                    v                           v
+            +-------+-------+           +-------+-------+
+            | Weighted Sum  |           | Weighted Sum  |
+            | Readout Layer |           | Readout Layer |
+            +-------+-------+           +-------+-------+
+                    |                           |
+                    +-------------+-------------+
+                                  |
+                                  v
+                    +-------------+-------------+
+                    |         Concat            |
+                    |      [AST + CDFG]         |
+                    +-------------+-------------+
+                                  |
+                                  v
+                    +-------------+-------------+
+                    |        Classifier         |
+                    |          (MLP)            |
+                    +-------------+-------------+
+                                  |
+                                  v
+                    +-------------+-------------+
+                    |         Output:           |
+                    |   Vulnerable / Safe       |
+                    +---------------------------+
 ```
 
 ---
@@ -87,26 +96,26 @@ Dự án này xây dựng một hệ thống **phát hiện lỗ hổng bảo m�
 
 ```
 Auto_Bug_Detection/
-├── 📄 Train_Model.py          # Script huấn luyện model
-├── 📄 Detector.py             # Script phát hiện lỗ hổng
-├── 📄 Code2Graph.py           # Chuyển đổi code thành graph
-├── 📄 Requirements.txt        # Dependencies
-├── 📄 README.md               # Documentation
-├── 📄 .gitignore              # Git ignore rules
-│
-├── 📂 TIFS_Data/              # 📥 Dataset (tải từ Drive)
-│   ├── SARD/                  # Raw SARD dataset
-│   ├── SARD_after/            # Preprocessed data
-│   ├── graphs/                # Generated graphs
-│   └── preprocess_sard.py     # Preprocessing script
-│
-├── 📂 Trained_Model/          # Model checkpoints
-│   ├── Auto_Bug_Detector.pt
-│   └── Auto_Bug_Detector_best.pt
-│
-├── 📂 logs/                   # Training logs (TensorBoard)
-│
-└── 📂 evaluation_results/     # Evaluation metrics
+|-- Train_Model.py          # Script huan luyen model
+|-- Detector.py             # Script phat hien lo hong
+|-- Code2Graph.py           # Chuyen doi code thanh graph
+|-- Requirements.txt        # Dependencies
+|-- README.md               # Documentation
+|-- .gitignore              # Git ignore rules
+|
+|-- TIFS_Data/              # Dataset (tai tu Drive)
+|   |-- SARD/               # Raw SARD dataset
+|   |-- SARD_after/         # Preprocessed data
+|   |-- graphs/             # Generated graphs
+|   +-- preprocess_sard.py  # Preprocessing script
+|
+|-- Trained_Model/          # Model checkpoints
+|   |-- Auto_Bug_Detector.pt
+|   +-- Auto_Bug_Detector_best.pt
+|
+|-- logs/                   # Training logs (TensorBoard)
+|
++-- evaluation_results/     # Evaluation metrics
 ```
 
 ---
@@ -319,5 +328,6 @@ MIT License - Sử dụng cho mục đích học tập và nghiên cứu.
 <p align="center">
   <strong>⭐ Nếu project hữu ích, hãy cho một star nhé!</strong>
 </p>
-#   A u t o _ B u g _ D e t e c t i o n  
+#   A u t o _ B u g _ D e t e c t i o n 
+ 
  
