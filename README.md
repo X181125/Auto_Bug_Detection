@@ -97,10 +97,8 @@ Auto_Bug_Detection/
     |
     |-- Train_Model.py          # Script huấn luyện model
     |-- Detector.py             # Script phát hiện lỗ hổng
-    |-- Code2Graph.py           # Chuyển đổi code thành graph
     |-- Requirements.txt        # Các thư viện cần thiết
     |-- README.md               # Tài liệu hướng dẫn
-    |-- .gitignore              # Các file bỏ qua khi commit
     |
     |-- TIFS_Data/              # Dataset (tải từ Drive)
     |       |-- SARD/           # Dataset SARD gốc
@@ -111,10 +109,6 @@ Auto_Bug_Detection/
     |-- Trained_Model/          # Các checkpoint của model
     |       |-- Auto_Bug_Detector.pt
     |       |-- Auto_Bug_Detector_best.pt
-    |
-    |-- logs/                   # Log huấn luyện (TensorBoard)
-    |
-    |-- evaluation_results/     # Kết quả đánh giá
 ```
 
 ---
@@ -125,7 +119,7 @@ Auto_Bug_Detection/
 
 ### Tải Dataset
 
-**Google Drive:** [Nhấn để tải TIFS_Data](https://drive.google.com/drive/folders/YOUR_FOLDER_ID_HERE?usp=sharing)
+**Google Drive:** [Nhấn để tải TIFS_Data](https://drive.google.com/file/d/1pF8ca8zqUap4bv1bYMPZlBpOuzOTWJr6/view?usp=drive_link)
 
 Sau khi tải về:
 1. Giải nén file (nếu là .zip)
