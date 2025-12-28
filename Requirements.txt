@@ -1,0 +1,29 @@
+# Core Deep Learning Framework
+torch>=2.1.0
+torchvision>=0.16.0
+
+# Numerical Computing
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Data Processing  
+gensim>=4.3.0
+jsonlines>=3.1.0
+scikit-learn>=1.3.0
+
+# Visualization & Logging
+matplotlib>=3.7.0
+seaborn>=0.12.0
+tqdm>=4.65.0
+tensorboard>=2.14.0
+
+# Utilities
+pathlib2>=2.3.7
+python-dateutil>=2.8.2
+PyYAML>=6.0
+
+# Optional: GPU acceleration (uncomment if using CUDA)
+# torch-geometric>=2.3.0
+
+# Optional: Code Parsing (if using Joern for preprocessing)
+# tree-sitter>=0.20.0

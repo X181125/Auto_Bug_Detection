@@ -1,0 +1,36 @@
+{
+  "data_dir": "/kaggle/input/sardafter/SARD_after",
+  "save_dir": "/kaggle/working/Trained_Model",
+  "node_vocab_size": 46,
+  "edge_vocab_ast": {
+    "child": 1,
+    "next_token": 2
+  },
+  "edge_vocab_cdfg": {
+    "compute_from": 1,
+    "guarded_by": 2,
+    "guarded_by_negation": 3,
+    "last_lexical_use": 4,
+    "jump": 5
+  },
+  "args": {
+    "data_dir": "",
+    "epochs": 10,
+    "batch_size": 8,
+    "max_nodes_per_batch": 8000,
+    "state_dim": 128,
+    "num_layers": 4,
+    "num_heads": 4,
+    "dropout": 0.1,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 6,
+    "threshold": 0.5,
+    "seed": 13,
+    "device": null,
+    "max_train_samples": 0,
+    "max_val_samples": 0,
+    "max_test_samples": 0,
+    "save_dir": "/kaggle/working/Trained_Model"
+  }
+}

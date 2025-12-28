@@ -1,0 +1,77 @@
+# ===========================
+# Auto Bug Detection .gitignore
+# ===========================
+
+# Dataset folder (too large - download from Drive)
+TIFS_Data/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+venv/
+.venv/
+ENV/
+env/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# Trained Models (optional - uncomment if you want to track)
+# Trained_Model/*.pt
+
+# Logs
+logs/
+*.log
+tensorboard_logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# Data files (generated during preprocessing)
+*.pkl
+*.pickle
+
+# Graph visualizations
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Evaluation results (optional)
+evaluation_results/
