@@ -5,28 +5,28 @@
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Academic%20Project-blue?style=flat-square)
 
-**Do an mon hoc: Phat hien lo hong bao mat tu dong trong ma nguon C/C++ su dung Graph Transformer**
+**Đồ án môn học: Phát hiện lỗ hổng bảo mật tự động trong mã nguồn C/C++ sử dụng Graph Transformer**
 
 ---
 
-## Gioi thieu
+## Giới thiệu
 
-Du an nay xay dung mot he thong phat hien lo hong bao mat tu dong trong ma nguon C/C++ su dung mo hinh Graph Transformer. He thong hoc bieu dien tu hai view do thi:
+Dự án này xây dựng một hệ thống phát hiện lỗ hổng bảo mật tự động trong mã nguồn C/C++ sử dụng mô hình Graph Transformer. Hệ thống học biểu diễn từ hai view đồ thị:
 
-| View | Mo ta |
+| View | Mô tả |
 |------|-------|
-| **AST** (Abstract Syntax Tree) | Cay cu phap truu tuong - bieu dien cau truc ngu phap cua ma nguon |
-| **CDFG** (Control Data Flow Graph) | Do thi luong dieu khien va du lieu - bieu dien luong thuc thi va phu thuoc du lieu |
+| **AST** (Abstract Syntax Tree) | Cây cú pháp trừu tượng - biểu diễn cấu trúc ngữ pháp của mã nguồn |
+| **CDFG** (Control Data Flow Graph) | Đồ thị luồng điều khiển và dữ liệu - biểu diễn luồng thực thi và phụ thuộc dữ liệu |
 
-### Muc tieu
+### Mục tiêu
 
-- Phat hien cac lo hong bao mat pho bien (CWE-77, Command Injection, Buffer Overflow...)
-- Ung dung Deep Learning (Graph Neural Networks) vao bai toan phan tich ma nguon
-- Ket hop thong tin tu nhieu bieu dien do thi de tang do chinh xac
+- Phát hiện các lỗ hổng bảo mật phổ biến (CWE-77, Command Injection, Buffer Overflow...)
+- Ứng dụng Deep Learning (Graph Neural Networks) vào bài toán phân tích mã nguồn
+- Kết hợp thông tin từ nhiều biểu diễn đồ thị để tăng độ chính xác
 
 ---
 
-## Kien truc Model
+## Kiến trúc Model
 
 ```
                          Input: Source Code (C/C++)
@@ -90,61 +90,61 @@ Du an nay xay dung mot he thong phat hien lo hong bao mat tu dong trong ma nguon
 
 ---
 
-## Cau truc Project
+## Cấu trúc Project
 
 ```
 Auto_Bug_Detection/
     |
-    |-- Train_Model.py          # Script huan luyen model
-    |-- Detector.py             # Script phat hien lo hong
-    |-- Code2Graph.py           # Chuyen doi code thanh graph
-    |-- Requirements.txt        # Dependencies
-    |-- README.md               # Documentation
-    |-- .gitignore              # Git ignore rules
+    |-- Train_Model.py          # Script huấn luyện model
+    |-- Detector.py             # Script phát hiện lỗ hổng
+    |-- Code2Graph.py           # Chuyển đổi code thành graph
+    |-- Requirements.txt        # Các thư viện cần thiết
+    |-- README.md               # Tài liệu hướng dẫn
+    |-- .gitignore              # Các file bỏ qua khi commit
     |
-    |-- TIFS_Data/              # Dataset (tai tu Drive)
-    |       |-- SARD/           # Raw SARD dataset
-    |       |-- SARD_after/     # Preprocessed data
-    |       |-- graphs/         # Generated graphs
+    |-- TIFS_Data/              # Dataset (tải từ Drive)
+    |       |-- SARD/           # Dataset SARD gốc
+    |       |-- SARD_after/     # Dữ liệu đã tiền xử lý
+    |       |-- graphs/         # Các đồ thị đã sinh
     |       |-- preprocess_sard.py
     |
-    |-- Trained_Model/          # Model checkpoints
+    |-- Trained_Model/          # Các checkpoint của model
     |       |-- Auto_Bug_Detector.pt
     |       |-- Auto_Bug_Detector_best.pt
     |
-    |-- logs/                   # Training logs (TensorBoard)
+    |-- logs/                   # Log huấn luyện (TensorBoard)
     |
-    |-- evaluation_results/     # Evaluation metrics
+    |-- evaluation_results/     # Kết quả đánh giá
 ```
 
 ---
 
 ## Dataset
 
-**Luu y:** Folder `TIFS_Data/` chua dataset SARD rat nang (~2GB+) nen khong duoc commit len Git.
+**Lưu ý:** Thư mục `TIFS_Data/` chứa dataset SARD rất nặng (~2GB+) nên không được commit lên Git.
 
-### Tai Dataset
+### Tải Dataset
 
-**Google Drive:** [Click de tai TIFS_Data](https://drive.google.com/drive/folders/YOUR_FOLDER_ID_HERE?usp=sharing)
+**Google Drive:** [Nhấn để tải TIFS_Data](https://drive.google.com/drive/folders/YOUR_FOLDER_ID_HERE?usp=sharing)
 
-Sau khi tai ve:
-1. Giai nen file (neu la .zip)
-2. Dat folder `TIFS_Data/` vao thu muc goc cua project
-3. Cau truc dung: `Auto_Bug_Detection/TIFS_Data/SARD/...`
+Sau khi tải về:
+1. Giải nén file (nếu là .zip)
+2. Đặt thư mục `TIFS_Data/` vào thư mục gốc của project
+3. Cấu trúc đúng: `Auto_Bug_Detection/TIFS_Data/SARD/...`
 
-### Dataset Info
+### Thông tin Dataset
 
-| Thong tin | Gia tri |
+| Thông tin | Giá trị |
 |-----------|---------|
-| Nguon | SARD (Software Assurance Reference Dataset) |
-| Ngon ngu | C/C++ |
-| Loai lo hong | CWE-77 (Command Injection), CWE-119 (Buffer Overflow)... |
-| So mau | ~10,000+ functions |
-| Format | Source code -> AST/CDFG graphs -> JSONL |
+| Nguồn | SARD (Software Assurance Reference Dataset) |
+| Ngôn ngữ | C/C++ |
+| Loại lỗ hổng | CWE-77 (Command Injection), CWE-119 (Buffer Overflow)... |
+| Số mẫu | ~10,000+ hàm |
+| Định dạng | Source code -> AST/CDFG graphs -> JSONL |
 
 ---
 
-## Cai dat
+## Cài đặt
 
 ### 1. Clone repository
 
@@ -153,7 +153,7 @@ git clone https://github.com/X181125/Auto_Bug_Detection.git
 cd Auto_Bug_Detection
 ```
 
-### 2. Tao virtual environment (khuyen nghi)
+### 2. Tạo môi trường ảo (khuyến nghị)
 
 ```bash
 python -m venv venv
@@ -165,46 +165,46 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Cai dat dependencies
+### 3. Cài đặt các thư viện
 
 ```bash
 pip install -r Requirements.txt
 ```
 
-### 4. Tai dataset
+### 4. Tải dataset
 
-Tai `TIFS_Data/` tu Google Drive (link o tren) va dat vao thu muc project.
+Tải `TIFS_Data/` từ Google Drive (link ở trên) và đặt vào thư mục project.
 
 ---
 
-## Huan luyen Model
+## Huấn luyện Model
 
-### Quick Start
+### Bắt đầu nhanh
 
 ```bash
 python Train_Model.py
 ```
 
-### Voi Custom Parameters
+### Với tham số tùy chỉnh
 
 ```bash
 python Train_Model.py --epochs 50 --lr 1e-3 --state-dim 128 --num-layers 4 --num-heads 4 --patience 10
 ```
 
-### Training Arguments
+### Các tham số huấn luyện
 
-| Argument | Default | Mo ta |
-|----------|---------|-------|
-| `--epochs` | 50 | So epochs huan luyen |
-| `--lr` | 1e-3 | Learning rate |
+| Tham số | Mặc định | Mô tả |
+|---------|----------|-------|
+| `--epochs` | 50 | Số epochs huấn luyện |
+| `--lr` | 1e-3 | Tốc độ học (learning rate) |
 | `--weight-decay` | 1e-4 | Weight decay (L2 regularization) |
-| `--state-dim` | 128 | Hidden dimension |
-| `--num-layers` | 4 | So Graph Transformer layers |
-| `--num-heads` | 4 | So attention heads |
-| `--max-nodes-per-batch` | 8000 | Max nodes moi batch |
-| `--patience` | 10 | Early stopping patience |
+| `--state-dim` | 128 | Số chiều ẩn (hidden dimension) |
+| `--num-layers` | 4 | Số lớp Graph Transformer |
+| `--num-heads` | 4 | Số attention heads |
+| `--max-nodes-per-batch` | 8000 | Số node tối đa mỗi batch |
+| `--patience` | 10 | Số epochs chờ trước khi dừng sớm |
 
-### Theo doi Training voi TensorBoard
+### Theo dõi quá trình huấn luyện với TensorBoard
 
 ```bash
 tensorboard --logdir logs
@@ -212,87 +212,87 @@ tensorboard --logdir logs
 
 ---
 
-## Phat hien Lo hong (Inference)
+## Phát hiện lỗ hổng (Inference)
 
-### Su dung file code mau
+### Sử dụng file code mẫu
 
 ```bash
 python Detector.py --source badExample.c
 ```
 
-### Output mau
+### Kết quả mẫu
 
 ```
-Vulnerability Detection Result
+Ket qua Phat hien Lo hong
 ================================
 File: badExample.c
-Prediction: VULNERABLE
-Confidence: 87.3%
+Du doan: CO LO HONG
+Do tin cay: 87.3%
 ================================
 ```
 
 ---
 
-## Ket qua Thuc nghiem
+## Kết quả thực nghiệm
 
-| Metric | CWE-77 Dataset |
+| Chỉ số | Dataset CWE-77 |
 |--------|----------------|
 | Accuracy | 85-90% |
 | Precision | 80-85% |
 | Recall | 80-90% |
 | F1-Score | 80-87% |
 
-Ket qua co the thay doi tuy thuoc vao hyperparameters va qua trinh tien xu ly du lieu.
+Kết quả có thể thay đổi tùy thuộc vào hyperparameters và quá trình tiền xử lý dữ liệu.
 
 ---
 
-## Cac thanh phan chinh
+## Các thành phần chính
 
 ### 1. Code2Graph.py
-Chuyen doi ma nguon C/C++ thanh do thi AST va CDFG.
+Chuyển đổi mã nguồn C/C++ thành đồ thị AST và CDFG.
 
 ### 2. Train_Model.py
-- `GraphTransformerLayer`: Multi-head self-attention voi edge-type embedding
-- `GraphTransformerEncoder`: Stack cua N GraphTransformerLayer
+- `GraphTransformerLayer`: Multi-head self-attention với edge-type embedding
+- `GraphTransformerEncoder`: Stack của N lớp GraphTransformerLayer
 - `WeightedSumReadout`: Attention-based pooling
-- `VulnDetectorGraphTransformer`: Model chinh ket hop 2 view
+- `VulnDetectorGraphTransformer`: Model chính kết hợp 2 view
 
 ### 3. Detector.py
-Script inference de phat hien lo hong tu file ma nguon.
+Script inference để phát hiện lỗ hổng từ file mã nguồn.
 
 ---
 
-## Hyperparameter Tuning
+## Điều chỉnh Hyperparameter
 
-### Dataset nho (< 1000 samples)
+### Dataset nhỏ (< 1000 mẫu)
 ```bash
 --state-dim 64 --num-layers 2 --num-heads 2 --epochs 30
 ```
 
-### Dataset vua (1000-10000 samples)
+### Dataset vừa (1000-10000 mẫu)
 ```bash
 --state-dim 128 --num-layers 4 --num-heads 4 --epochs 50
 ```
 
-### Dataset lon (> 10000 samples)
+### Dataset lớn (> 10000 mẫu)
 ```bash
 --state-dim 256 --num-layers 6 --num-heads 8 --epochs 100
 ```
 
 ---
 
-## Troubleshooting
+## Xử lý sự cố
 
-| Van de | Giai phap |
+| Vấn đề | Giải pháp |
 |--------|-----------|
-| Out of Memory | Giam `--max-nodes-per-batch`, `--state-dim`, `--num-layers` |
-| Overfitting | Tang `--weight-decay`, giam `--epochs` |
-| Underfitting | Tang `--state-dim`, `--num-layers`, `--epochs` |
-| Dataset khong tim thay | Kiem tra da tai `TIFS_Data/` tu Drive chua |
+| Hết bộ nhớ (Out of Memory) | Giảm `--max-nodes-per-batch`, `--state-dim`, `--num-layers` |
+| Overfitting | Tăng `--weight-decay`, giảm `--epochs` |
+| Underfitting | Tăng `--state-dim`, `--num-layers`, `--epochs` |
+| Không tìm thấy dataset | Kiểm tra đã tải `TIFS_Data/` từ Drive chưa |
 
 ---
 
-## Tham khao
+## Tài liệu tham khảo
 
 1. Graph Transformer Networks - Yun et al., NeurIPS 2019
 2. Devign: Effective Vulnerability Identification - Zhou et al., NeurIPS 2019
@@ -301,17 +301,17 @@ Script inference de phat hien lo hong tu file ma nguon.
 
 ---
 
-## Thong tin Do an
+## Thông tin đồ án
 
-| Thong tin | Chi tiet |
+| Thông tin | Chi tiết |
 |-----------|----------|
-| Mon hoc | An toan Thong tin / Machine Learning |
-| Truong | Dai hoc Cong nghe Thong tin - DHQG TPHCM (UIT) |
-| Sinh vien | Nguyen Dinh Hung |
+| Môn học | An toàn Thông tin / Machine Learning |
+| Trường | Đại học Công nghệ Thông tin - ĐHQG TPHCM (UIT) |
+| Sinh viên | Nguyễn Đình Hưng |
 | MSSV | 23520564 |
 
 ---
 
-## License
+## Giấy phép
 
-MIT License - Su dung cho muc dich hoc tap va nghien cuu.
+MIT License - Sử dụng cho mục đích học tập và nghiên cứu.
